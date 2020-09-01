@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 public class GrammarExercise {
     public static void main(String[] args) {
@@ -13,6 +13,20 @@ public class GrammarExercise {
 
     public static List<String> findCommonWordsWithSpace(String firstWordList, String secondWordList) {
         //在这编写实现代码
+        String[] splitedFirstWordList = firstWordList.split(",");
+        String[] splitedSecondWordList = secondWordList.split(",");
+        List<String> foundCommonWordsList = findCommonWords(splitedFirstWordList, splitedSecondWordList);
         return null;
+    }
+
+    private static List<String> findCommonWords(String[] splitedFirstWordList, String[] splitedSecondWordList) {
+        List<String> foundCommonWordsList = new ArrayList<>();
+        Set<String> noRepeatedWords = new HashSet<>(Arrays.asList(splitedFirstWordList));
+        Arrays.stream(splitedSecondWordList).forEach(word -> {
+            if (!noRepeatedWords.add(word)) {
+                foundCommonWordsList.add(word);
+            }
+        });
+        return foundCommonWordsList;
     }
 }
