@@ -31,16 +31,8 @@ public class GrammarExercise {
         Stream<String> processedFirstWordsList = processingWords(splitedFirstWordList);
         Stream<String> processedSecondWordsList = processingWords(splitedSecondWordList);
         Set<String> noRepeatedWords = new HashSet<>();
-        processedFirstWordsList.forEach(word -> {
-            if (word.length() == 0) {
-                throw new RuntimeException();
-            }
-            noRepeatedWords.add(word);
-        });
+        processedFirstWordsList.forEach(noRepeatedWords::add);
         processedSecondWordsList.forEach(word -> {
-            if (word.length() == 0) {
-                throw new RuntimeException();
-            }
             if (!noRepeatedWords.add(word)) {
                 foundCommonWordsList.add(word);
             }
@@ -49,6 +41,11 @@ public class GrammarExercise {
     }
 
     private static Stream<String> processingWords(String[] splitedWordList) {
-        return Arrays.stream(splitedWordList).map(String::toUpperCase);
+        return Arrays.stream(splitedWordList).map(word -> {
+            if (word.length() == 0) {
+                throw new RuntimeException();
+            }
+            return word.toUpperCase();
+        });
     }
 }
