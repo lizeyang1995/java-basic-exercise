@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GrammarExercise {
     public static void main(String[] args) {
@@ -27,14 +28,16 @@ public class GrammarExercise {
 
     private static List<String> findCommonWords(String[] splitedFirstWordList, String[] splitedSecondWordList) {
         List<String> foundCommonWordsList = new ArrayList<>();
+        Stream<String> processedFirstWordsList = processingWords(splitedFirstWordList);
+        Stream<String> processedSecondWordsList = processingWords(splitedSecondWordList);
         Set<String> noRepeatedWords = new HashSet<>();
-        Arrays.stream(splitedFirstWordList).map(String::toUpperCase).forEach(word -> {
+        processedFirstWordsList.forEach(word -> {
             if (word.length() == 0) {
                 throw new RuntimeException();
             }
             noRepeatedWords.add(word);
         });
-        Arrays.stream(splitedSecondWordList).map(String::toUpperCase).forEach(word -> {
+        processedSecondWordsList.forEach(word -> {
             if (word.length() == 0) {
                 throw new RuntimeException();
             }
@@ -43,5 +46,9 @@ public class GrammarExercise {
             }
         });
         return foundCommonWordsList;
+    }
+
+    private static Stream<String> processingWords(String[] splitedWordList) {
+        return Arrays.stream(splitedWordList).map(String::toUpperCase);
     }
 }
