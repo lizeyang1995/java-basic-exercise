@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GrammarExercise {
     public static void main(String[] args) {
@@ -16,7 +17,11 @@ public class GrammarExercise {
         String[] splitedFirstWordList = firstWordList.split(",");
         String[] splitedSecondWordList = secondWordList.split(",");
         List<String> foundCommonWordsList = findCommonWords(splitedFirstWordList, splitedSecondWordList);
-        return null;
+        return addSpacesBetweenCharacters(foundCommonWordsList);
+    }
+
+    private static List<String> addSpacesBetweenCharacters(List<String> foundCommonWordsList) {
+        return foundCommonWordsList.stream().map(word -> word.replace("", " ").trim()).collect(Collectors.toList());
     }
 
     private static List<String> findCommonWords(String[] splitedFirstWordList, String[] splitedSecondWordList) {
