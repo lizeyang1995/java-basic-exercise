@@ -42,7 +42,7 @@ public class GrammarExercise {
 
     private static Stream<String> processingWords(String[] splitedWordList) {
         return Arrays.stream(splitedWordList).map(word -> {
-            if (word.length() == 0) {
+            if (!word.matches("[a-zA-Z]+")) {
                 throw new RuntimeException();
             }
             return word.toUpperCase();
