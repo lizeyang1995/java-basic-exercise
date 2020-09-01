@@ -26,8 +26,9 @@ public class GrammarExercise {
 
     private static List<String> findCommonWords(String[] splitedFirstWordList, String[] splitedSecondWordList) {
         List<String> foundCommonWordsList = new ArrayList<>();
-        Set<String> noRepeatedWords = new HashSet<>(Arrays.asList(splitedFirstWordList));
-        Arrays.stream(splitedSecondWordList).forEach(word -> {
+        Set<String> noRepeatedWords = new HashSet<>();
+        Arrays.stream(splitedFirstWordList).map(String::toUpperCase).forEach(noRepeatedWords::add);
+        Arrays.stream(splitedSecondWordList).map(String::toUpperCase).forEach(word -> {
             if (!noRepeatedWords.add(word)) {
                 foundCommonWordsList.add(word);
             }
